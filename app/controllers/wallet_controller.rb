@@ -8,7 +8,7 @@ class WalletController < ApplicationController
   	egg_req_url = ENV["CONTRACT_MASTER_SERVICE"]+"eggs/get_by_address?address="+address
   	eggs = Typhoeus.get(egg_req_url, followlocation: true).body
 
-    beast_req_url = ENV["INFORMATION_SERVICE"]+"query/get?owner="+address
+    beast_req_url = ENV["INFORMATION_SERVICE"]+"query?owner="+address+"&orderBy=external_id&start=0"
     beasts = Typhoeus.get(beast_req_url, followlocation: true).body
 
   	returnHash["eggs"] = eggs
