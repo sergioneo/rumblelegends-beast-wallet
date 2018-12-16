@@ -1,6 +1,7 @@
 class WalletController < ApplicationController
   def index
 
+    beast_type_strings = {"0" => "dinosaur", "1" => "unicorn"}
   	address = params[:address]
 
   	returnHash = Hash.new
@@ -10,6 +11,13 @@ class WalletController < ApplicationController
 
     beast_req_url = ENV["INFORMATION_SERVICE"]+"query?owner="+address+"&orderBy=external_id&start=0"
     beasts = Typhoeus.get(beast_req_url, followlocation: true).body
+    image_base_url = ENV["IMAGE_GENERATION_SERVICE"]
+    
+    beasts.each do |beast|
+      beast_type_strings[beast["beast_type"].to_s]
+      image_url = image_base_url+beast_type_string+"/"+beast["genes"]
+      beast["image_url"] = image_url
+    end
 
   	returnHash["eggs"] = eggs
   	returnHash["beasts"] = beasts
