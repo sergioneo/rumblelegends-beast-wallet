@@ -15,7 +15,7 @@ class WalletController < ApplicationController
     image_base_url = ENV["IMAGE_GENERATION_SERVICE"]
     
     beasts.each do |beast|
-      beast_type_strings[beast["beast_type"].to_s]
+      beast_type_string = beast_type_strings[beast["beast_type"].to_s]
       image_url = image_base_url+beast_type_string+"/"+beast["genes"]
       beast["image_url"] = image_url
     end
