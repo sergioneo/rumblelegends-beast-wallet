@@ -11,7 +11,7 @@ class WalletController < ApplicationController
 
     beast_req_url = ENV["INFORMATION_SERVICE"]+"query?owner="+address+"&orderBy=external_id&start=0"
     query_result = JSON.parse(Typhoeus.get(beast_req_url, followlocation: true).body)
-    beasts = query["hits"]
+    beasts = query_result["hits"]
     image_base_url = ENV["IMAGE_GENERATION_SERVICE"]
     
     beasts.each do |beast|
